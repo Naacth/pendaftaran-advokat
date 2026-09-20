@@ -1,0 +1,190 @@
+/* ============================================================
+   pkpa.css — Halaman Publik PKPA PERADI DPC Tangerang Raya
+   Warna: biru tua #0B2A66, aksen emas #C9A24B, putih #FFFFFF
+   ============================================================ */
+
+/* ── Variabel ── */
+:root {
+  --clr-navy:   #0B2A66;
+  --clr-navy2:  #123A8C;
+  --clr-gold:   #C9A24B;
+  --clr-gold2:  #e0bc72;
+  --clr-white:  #FFFFFF;
+  --clr-light:  #F4F6FB;
+  --clr-text:   #1a1a2e;
+  --clr-muted:  #6b7a99;
+  --radius:     12px;
+  --shadow:     0 4px 24px rgba(11,42,102,.12);
+  --font:       'Inter', system-ui, sans-serif;
+  --transition: all .25s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  color: var(--clr-text);
+  background: var(--clr-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Navbar ── */
+.pkpa-navbar {
+  background: linear-gradient(135deg, var(--clr-navy) 0%, var(--clr-navy2) 100%);
+  box-shadow: 0 2px 20px rgba(11,42,102,.25);
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+}
+.pkpa-navbar .navbar-brand { font-size: 1.1rem; letter-spacing: -.3px; }
+.navbar-logo-icon {
+  width: 36px; height: 36px;
+  background: var(--clr-gold);
+  border-radius: 8px;
+  display: grid; place-items: center;
+  color: var(--clr-navy);
+  font-size: 1.1rem;
+}
+.pkpa-navbar .nav-link {
+  color: rgba(255,255,255,.85) !important;
+  font-size: .9rem;
+  font-weight: 500;
+  padding: .4rem .75rem;
+  border-radius: 6px;
+  transition: var(--transition);
+}
+.pkpa-navbar .nav-link:hover { color: #fff !important; background: rgba(255,255,255,.12); }
+.btn-accent {
+  background: var(--clr-gold);
+  color: var(--clr-navy);
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  transition: var(--transition);
+}
+.btn-accent:hover { background: var(--clr-gold2); color: var(--clr-navy); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(201,162,75,.4); }
+
+/* ── Hero Section ── */
+.pkpa-hero {
+  background: linear-gradient(135deg, var(--clr-navy) 0%, #1a4db3 100%);
+  padding: 5rem 0 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.pkpa-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.pkpa-hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; color: #fff; line-height: 1.15; }
+.pkpa-hero .tagline { color: var(--clr-gold); font-weight: 600; font-size: 1rem; letter-spacing: .5px; text-transform: uppercase; }
+.pkpa-hero .lead { color: rgba(255,255,255,.8); font-size: 1.05rem; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: rgba(201,162,75,.2); border: 1px solid rgba(201,162,75,.4);
+  color: var(--clr-gold2); border-radius: 50px;
+  padding: .35rem .9rem; font-size: .85rem; font-weight: 600;
+  margin-bottom: 1.25rem;
+}
+
+/* ── Angkatan Card ── */
+.batch-card {
+  background: rgba(255,255,255,.12);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: var(--radius);
+  padding: 1.5rem 2rem;
+  color: #fff;
+  margin-top: 2rem;
+}
+.batch-card .label { font-size: .78rem; text-transform: uppercase; letter-spacing: .5px; color: rgba(255,255,255,.6); }
+.batch-card .value { font-size: 1.1rem; font-weight: 700; }
+
+/* ── Section umum ── */
+.section-label {
+  font-size: .8rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--clr-gold);
+  display: block; margin-bottom: .5rem;
+}
+.section-title { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; color: var(--clr-navy); }
+
+/* ── Feature cards ── */
+.feature-card {
+  border: 1.5px solid #e8edf8;
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  height: 100%;
+  transition: var(--transition);
+  background: #fff;
+}
+.feature-card:hover { border-color: var(--clr-navy2); transform: translateY(-4px); box-shadow: var(--shadow); }
+.feature-icon {
+  width: 52px; height: 52px;
+  background: linear-gradient(135deg, #e8edf8, #d0dbf5);
+  border-radius: 12px;
+  display: grid; place-items: center;
+  font-size: 1.5rem; color: var(--clr-navy2);
+  margin-bottom: 1rem;
+}
+
+/* ── Nilai Cards ── */
+.nilai-card {
+  background: linear-gradient(135deg, var(--clr-navy), var(--clr-navy2));
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  color: #fff;
+  text-align: center;
+  transition: var(--transition);
+}
+.nilai-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(11,42,102,.3); }
+.nilai-icon { font-size: 2rem; color: var(--clr-gold); margin-bottom: .75rem; }
+
+/* ── WhatsApp Contact Cards ── */
+.wa-card {
+  border: 1.5px solid #e8edf8;
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  text-align: center;
+  transition: var(--transition);
+}
+.wa-card:hover { border-color: #25D366; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,211,102,.15); }
+.wa-avatar {
+  width: 52px; height: 52px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  border-radius: 50%; display: grid; place-items: center;
+  font-size: 1.4rem; color: #fff; margin: 0 auto .75rem;
+}
+.btn-wa {
+  background: #25D366; color: #fff; border: none;
+  border-radius: 8px; font-weight: 600; font-size: .85rem;
+  padding: .4rem 1rem; transition: var(--transition);
+  display: inline-flex; align-items: center; gap: .4rem;
+}
+.btn-wa:hover { background: #128C7E; color: #fff; transform: translateY(-1px); }
+
+/* ── Form ── */
+.form-section { background: var(--clr-light); border-radius: var(--radius); padding: 2rem; margin-bottom: 1.5rem; }
+.form-section-title { font-size: 1rem; font-weight: 700; color: var(--clr-navy); margin-bottom: 1.25rem; display: flex; align-items: center; gap: .5rem; }
+.form-section-title i { color: var(--clr-gold); }
+.form-label { font-weight: 600; font-size: .88rem; color: #374151; }
+.form-control:focus, .form-select:focus { border-color: var(--clr-navy2); box-shadow: 0 0 0 .2rem rgba(18,58,140,.15); }
+
+/* ── Status Badge ── */
+.status-pill {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .35rem .9rem; border-radius: 50px;
+  font-size: .82rem; font-weight: 600;
+}
+.status-menunggu  { background: #fff3cd; color: #856404; }
+.status-perbaikan { background: #cff4fc; color: #055160; }
+.status-verified  { background: #d1e7dd; color: #0a3622; }
+.status-tolak     { background: #f8d7da; color: #58151c; }
+
+/* ── Footer ── */
+.pkpa-footer { background: linear-gradient(135deg, var(--clr-navy), #0a1f4e); }
+
+/* ── Responsive ── */
+@media (max-width: 576px) {
+  .pkpa-hero { padding: 3rem 0 2.5rem; }
+  .batch-card { padding: 1.25rem; }
+  .form-section { padding: 1.25rem; }
+}
