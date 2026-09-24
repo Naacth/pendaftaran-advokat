@@ -6,6 +6,7 @@
   <meta name="csrf-name" content="<?= csrf_token() ?>">
   <meta name="csrf-hash" content="<?= csrf_hash() ?>">
   <title><?= esc($title ?? 'Admin PKPA — PERADI') ?></title>
+  <meta name="robots" content="noindex, nofollow">
 
   <!-- Bootstrap 5.3 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -14,7 +15,9 @@
   <!-- DataTables Bootstrap5 -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Custom Admin CSS -->
   <link rel="stylesheet" href="<?= base_url('assets/css/admin.css') ?>">
   <?= $this->renderSection('styles') ?>
@@ -27,77 +30,111 @@
 <div class="d-flex" id="wrapper">
 
   <!-- ── Sidebar ── -->
-  <nav id="sidebar" class="admin-sidebar d-flex flex-column">
-    <div class="sidebar-brand">
-      <i class="bi bi-scales fs-4 text-accent me-2"></i>
-      <span>PKPA Admin</span>
-    </div>
+  <nav id="sidebar" class="admin-sidebar">
 
+    <!-- Brand -->
+    <a class="sidebar-brand text-decoration-none" href="<?= base_url('admin/pkpa') ?>">
+      <div class="sidebar-brand-icon">
+        <i class="bi bi-scales"></i>
+      </div>
+      <div class="sidebar-brand-text">
+        <span class="sidebar-brand-name">PKPA Admin</span>
+        <span class="sidebar-brand-sub">PERADI DPC Tangerang Raya</span>
+      </div>
+    </a>
+
+    <!-- Nav Menu -->
     <ul class="sidebar-nav nav flex-column flex-grow-1">
       <li class="nav-item">
-        <a class="nav-link <?= str_contains(current_url(), 'admin/pkpa') && !str_contains(current_url(), '/') ? 'active' : '' ?>"
-           href="<?= base_url('admin/pkpa') ?>">
-          <i class="bi bi-speedometer2 me-2"></i>Dashboard
+        <a class="nav-link" href="<?= base_url('admin/pkpa') ?>" id="nav-dashboard">
+          <i class="bi bi-speedometer2"></i>Dashboard
         </a>
       </li>
+
       <li class="sidebar-label">Kelola PKPA</li>
+
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('admin/pkpa/angkatan') ?>">
-          <i class="bi bi-calendar3 me-2"></i>Angkatan
+          <i class="bi bi-calendar3"></i>Angkatan
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('admin/pkpa/pendaftar') ?>">
-          <i class="bi bi-people me-2"></i>Pendaftar
+          <i class="bi bi-people"></i>Pendaftar
         </a>
       </li>
+
       <li class="sidebar-label">Pengaturan</li>
+
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('admin/pkpa/pengaturan') ?>">
-          <i class="bi bi-gear me-2"></i>Pengaturan
+          <i class="bi bi-gear"></i>Pengaturan
         </a>
       </li>
       <?php if (session('user_role') === 'super_admin'): ?>
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('admin/pkpa/users') ?>">
-          <i class="bi bi-person-badge me-2"></i>User Admin
+          <i class="bi bi-person-badge"></i>User Admin
         </a>
       </li>
       <?php endif; ?>
     </ul>
 
+    <!-- Sidebar Footer / User -->
     <div class="sidebar-footer">
-      <div class="small text-truncate text-white-50"><?= esc(session('user_nama')) ?></div>
-      <div class="small text-white-50 mb-2"><?= esc(session('user_role')) ?></div>
-      <a href="<?= base_url('admin/logout') ?>" class="btn btn-outline-light btn-sm w-100">
-        <i class="bi bi-box-arrow-left me-1"></i>Logout
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar">
+          <i class="bi bi-person-fill"></i>
+        </div>
+        <div>
+          <div class="sidebar-user-name"><?= esc(session('user_nama')) ?></div>
+          <div class="sidebar-user-role"><?= esc(session('user_role')) ?></div>
+        </div>
+      </div>
+      <a href="<?= base_url('admin/logout') ?>" class="btn-logout">
+        <i class="bi bi-box-arrow-left"></i>Logout
       </a>
     </div>
   </nav>
 
-  <!-- ── Main content ── -->
+  <!-- ── Main Content ── -->
   <div id="page-content-wrapper" class="flex-grow-1 d-flex flex-column min-vh-100">
 
     <!-- Topbar -->
-    <div class="admin-topbar d-flex align-items-center px-3 px-md-4">
-      <button class="btn btn-sm btn-outline-secondary me-3" id="sidebar-toggle">
+    <div class="admin-topbar">
+      <button class="topbar-toggle border-0 me-3 flex-shrink-0" id="sidebar-toggle" title="Toggle Sidebar">
         <i class="bi bi-list fs-5"></i>
       </button>
-      <h6 class="mb-0 fw-semibold text-truncate"><?= esc($title ?? 'Dashboard') ?></h6>
+
+      <div class="flex-grow-1">
+        <div class="topbar-title"><?= esc($title ?? 'Dashboard') ?></div>
+        <div class="topbar-breadcrumb">
+          <span class="text-muted">PERADI DPC Tangerang Raya</span>
+          <i class="bi bi-chevron-right mx-1 small"></i>
+          <span><?= esc($title ?? 'Dashboard') ?></span>
+        </div>
+      </div>
+
       <div class="ms-auto d-flex align-items-center gap-2">
-        <a href="<?= base_url('pkpa') ?>" target="_blank" class="btn btn-sm btn-outline-primary">
-          <i class="bi bi-box-arrow-up-right me-1"></i>Lihat Halaman Publik
+        <a href="<?= base_url('pkpa') ?>" target="_blank"
+           class="btn btn-sm d-flex align-items-center gap-1"
+           style="background:var(--bg);border:1.5px solid var(--border);color:#374151;border-radius:var(--radius-sm);font-size:.8rem;font-weight:600;padding:.4rem .9rem">
+          <i class="bi bi-box-arrow-up-right" style="font-size:.8rem"></i>
+          <span class="d-none d-md-inline">Lihat Publik</span>
         </a>
       </div>
     </div>
 
     <!-- Konten -->
-    <main class="p-3 p-md-4 flex-grow-1">
+    <main class="admin-main flex-grow-1">
       <?= $this->renderSection('content') ?>
     </main>
 
-    <footer class="admin-footer text-center py-2 small text-muted">
-      &copy; <?= date('Y') ?> PERADI DPC Tangerang Raya
+    <footer class="admin-footer">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-1">
+        <span>&copy; <?= date('Y') ?> PERADI DPC Tangerang Raya</span>
+        <span class="text-muted" style="font-size:.72rem">Panel Admin PKPA v1.0</span>
+      </div>
     </footer>
   </div>
 </div>
@@ -112,15 +149,34 @@
 <script src="<?= base_url('assets/js/swal-confirm.js') ?>"></script>
 <script src="<?= base_url('assets/js/datatable-init.js') ?>"></script>
 <script>
-  // Sidebar toggle
+  // Sidebar toggle (desktop)
   document.getElementById('sidebar-toggle').addEventListener('click', () => {
-    document.getElementById('wrapper').classList.toggle('sidebar-collapsed');
+    const wrapper = document.getElementById('wrapper');
+    if (window.innerWidth < 992) {
+      wrapper.classList.toggle('sidebar-open');
+    } else {
+      wrapper.classList.toggle('sidebar-collapsed');
+    }
   });
 
-  // Active nav
+  // Active nav — match current URL
+  const currentUrl = window.location.href;
   document.querySelectorAll('#sidebar .nav-link').forEach(link => {
-    if (link.href && window.location.href.startsWith(link.href) && link.href !== BASE_URL + '/admin/pkpa') {
+    if (link.href && currentUrl.startsWith(link.href) && link.href.length > BASE_URL.length + 12) {
       link.classList.add('active');
+    }
+    // Special case: dashboard exact match
+    if (link.id === 'nav-dashboard' && (currentUrl === link.href || currentUrl === link.href + '/')) {
+      link.classList.add('active');
+    }
+  });
+
+  // Mobile: close sidebar on overlay click
+  document.getElementById('wrapper').addEventListener('click', function(e) {
+    if (window.innerWidth < 992 && this.classList.contains('sidebar-open')) {
+      if (!e.target.closest('#sidebar')) {
+        this.classList.remove('sidebar-open');
+      }
     }
   });
 </script>

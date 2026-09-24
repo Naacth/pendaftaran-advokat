@@ -1,32 +1,57 @@
 <?= $this->extend('layouts/public') ?>
 <?= $this->section('content') ?>
 
-<div class="container py-5">
+<!-- ── Page Header ── -->
+<div class="form-page-header">
+  <div class="container">
+    <div class="form-breadcrumb">
+      <a href="<?= base_url('pkpa') ?>"><i class="bi bi-house-door me-1"></i>Beranda</a>
+      <span class="separator"><i class="bi bi-chevron-right"></i></span>
+      <a href="<?= base_url('pkpa/cek-status') ?>">Cek Status</a>
+      <span class="separator"><i class="bi bi-chevron-right"></i></span>
+      <span class="current">Perbaikan Data</span>
+    </div>
+    <h1 class="form-page-title">Perbaiki Data Pendaftaran</h1>
+    <p class="form-page-subtitle mt-1">Perbarui data sesuai catatan dari panitia</p>
 
-  <!-- Header -->
-  <div class="text-center mb-5">
-    <span class="section-label">Form Perbaikan Data</span>
-    <h1 class="section-title">Perbaiki Data PKPA</h1>
-    <div class="alert alert-info d-inline-block text-start mt-3 shadow-sm border-0">
-      <h6 class="alert-heading fw-bold"><i class="bi bi-chat-left-text-fill me-2"></i>Catatan Panitia:</h6>
-      <p class="mb-0 mt-2"><?= nl2br(esc($reg['catatan_admin'])) ?></p>
+    <!-- Catatan Panitia Alert -->
+    <div class="mt-4 p-3 rounded-3" style="background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.25);backdrop-filter:blur(8px)">
+      <div class="d-flex gap-2 align-items-start">
+        <i class="bi bi-chat-left-text-fill mt-1" style="color:var(--clr-gold2);flex-shrink:0"></i>
+        <div>
+          <div class="fw-semibold mb-1" style="color:var(--clr-gold2);font-size:.82rem;text-transform:uppercase;letter-spacing:.5px">Catatan Panitia</div>
+          <p class="mb-0 small text-white" style="opacity:.85;line-height:1.6"><?= nl2br(esc($reg['catatan_admin'])) ?></p>
+        </div>
+      </div>
     </div>
   </div>
+</div>
 
-  <!-- Tampilkan error validasi -->
-  <?php if (session('errors')): ?>
-  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong><i class="bi bi-exclamation-triangle me-2"></i>Mohon perbaiki data berikut:</strong>
-    <ul class="mb-0 mt-2">
-      <?php foreach (session('errors') as $err): ?>
-      <li><?= esc($err) ?></li>
-      <?php endforeach; ?>
-    </ul>
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-  </div>
-  <?php endif; ?>
+<!-- ── Form Container ── -->
+<div class="form-container">
+  <div class="container">
 
-  <form action="<?= base_url('pkpa/perbaikan/' . $reg['public_token']) ?>" method="post" enctype="multipart/form-data"
+    <div class="row justify-content-center">
+      <div class="col-lg-9 col-xl-8">
+
+        <!-- Tampilkan error validasi -->
+        <?php if (session('errors')): ?>
+        <div class="alert border-0 mb-4 shadow-sm" style="background:#FFF1F0;border-left:4px solid #ef4444 !important;border-radius:var(--radius)" role="alert">
+          <div class="d-flex gap-3 align-items-start">
+            <i class="bi bi-exclamation-triangle-fill mt-1" style="color:#ef4444;font-size:1.1rem;flex-shrink:0"></i>
+            <div>
+              <div class="fw-bold mb-1" style="color:#820014;font-size:.92rem">Mohon perbaiki data berikut:</div>
+              <ul class="mb-0 ps-3" style="font-size:.875rem;color:#991b1b">
+                <?php foreach (session('errors') as $err): ?>
+                <li><?= esc($err) ?></li>
+                <?php endforeach; ?>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <?php endif; ?>
+
+        <form action="<?= base_url('pkpa/perbaikan/' . $reg['public_token']) ?>" method="post" enctype="multipart/form-data"
         class="needs-validation" novalidate
         data-swal-confirm="Ya, simpan perbaikan"
         data-swal-title="Simpan perbaikan?"
@@ -211,14 +236,19 @@
       </div>
     </div>
 
-    <div class="text-end">
-      <a href="<?= base_url('pkpa/cek-status') ?>" class="btn btn-outline-secondary me-2 px-4">Batal</a>
-      <button type="submit" class="btn btn-primary px-5" style="background:var(--clr-navy);border-color:var(--clr-navy)">
-        <i class="bi bi-save-fill me-2"></i>Simpan Perbaikan
-      </button>
-    </div>
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mt-2 mb-5">
+            <a href="<?= base_url('pkpa/cek-status') ?>" class="btn btn-outline-secondary px-4">
+              <i class="bi bi-arrow-left me-2"></i>Kembali ke Cek Status
+            </a>
+            <button type="submit" class="btn-submit">
+              <i class="bi bi-save-fill me-2"></i>Simpan Perbaikan
+            </button>
+          </div>
 
-  </form>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 <?= $this->section('scripts') ?>
